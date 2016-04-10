@@ -1,0 +1,30 @@
+FORMAT: 1A
+HOST: https://dice.today
+
+# Dice API
+
+**Dice API is technically private**. 
+While we do document it for our own sake and allow you to access this documentation, please not we do not officially support third-party development yet.
+
+
+Dice API is a list of publicly accessible objects on the Dice API. Note that any non GET request needs to include a X- CSRF-TOKEN header.
+
+## Recipes Collection [/api/1/recipes(?limit={limit})]
+
++ Parameters  
+  + limit (optional, Number) ... maximum number of recipes expected by client.  
+
+### List All Recipes [GET]
+
++ Response 200 (application/json)
+
+## Recipe [/api/1/recipes/{recipe_id}]
+
+A single User object with all its details  
+
+### Retrieve a Recipe [GET] 
+
++ Parameters  
+  + recipe_id (required, Number, `1`) ... Numeric `id` of the Recipe to perform action with.  
+
++ Response 200 (application/json)
