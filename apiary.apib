@@ -9,22 +9,85 @@ While we do document it for our own sake and allow you to access this documentat
 
 Dice API is a list of publicly accessible objects on the Dice API. Note that any non GET request needs to include a X- CSRF-TOKEN header.
 
-## Recipes Collection [/api/1/recipes(?limit={limit})]
+## Recipes Collection [/api/1/recipes{?limit}]
 
 + Parameters  
-  + limit (optional, Number) ... maximum number of recipes expected by client.  
+  + limit (optional, number) ... maximum number of recipes expected by client.  
 
 ### List All Recipes [GET]
 
+The list all recipes action will return a sorted list of Recipe objects as a 
+json string. Unlike the Retrieve a Recipe action, recipes in this action
+will be shortened and won't include all alternate localizations.
+
 + Response 200 (application/json)
+
+                [
+                  {
+                    "id": 50,
+                    "created_at": "2016-04-11 22:29:07",
+                    "updated_at": "2016-04-11 22:29:07",
+                    "deleted_at": null,
+                    "chef_id": 40,
+                    "localization": {
+                      "language": "en",
+                      "title": "Eum sed libero nam quo.",
+                      "short_description": "A few words.",
+                      "long_description": "A longer description of the recipe.",
+                      "created_at": "2016-04-11 22:29:07",
+                      "updated_at": "2016-04-11 22:29:07",
+                      "slug": "eum-sed-libero-nam-quo",
+                      "permalink": "https://dice.today/recipes/eum-sed-libero-nam-quo",
+                      "poster": {
+                        "url": "https://dice.today/recipes/{width}-{height}-eum-sed-libero-nam-quo.jpg?modes={modes}"
+                      }
+                    }
+                  }
+                ]
 
 ## Recipe [/api/1/recipes/{recipe_id}]
 
-A single User object with all its details  
+A single Recipe object.
 
 ### Retrieve a Recipe [GET] 
+
+A recipe object will contain additional information, such as alternate localizations and ingredients.
 
 + Parameters  
   + recipe_id (required, Number, `1`) ... Numeric `id` of the Recipe to perform action with.  
 
 + Response 200 (application/json)
+
+                  {
+                  "id": 1,
+                  "created_at": "2016-04-11 22:29:07",
+                  "updated_at": "2016-04-11 22:29:07",
+                  "deleted_at": null,
+                  "chef_id": 28,
+                  "localization": {
+                    "language": "en",
+                    "title": "Et excepturi laudantium temporibus porro.",
+                    "short_description": "Odio sit non ex. Et eaque ut magnam dolor eius ut.",
+                    "long_description": "Voluptatem dolorum cupiditate vitae odit aut et. Et cumque repellat facere. Placeat quis quas necessitatibus enim tempora. Voluptatum velit distinctio placeat nam distinctio fuga. Molestiae aut sint enim rem tempora dolores mollitia reprehenderit.",
+                    "created_at": "2016-04-11 22:29:07",
+                    "updated_at": "2016-04-11 22:29:07",
+                    "slug": "et-excepturi-laudantium-temporibus-porro",
+                    "permalink": "https://dice.today/recipes/et-excepturi-laudantium-temporibus-porro",
+                    "poster": {
+                      "url": "https://dice.today/recipes/{width}-{height}-et-excepturi-laudantium-temporibus-porro.jpg?modes={modes}"
+                    }
+                  },
+                  "ingredients": [
+                    {
+                      "ingredient": {
+                        "id": 2,
+                        "localization": {
+                          "language": "en",
+                          "title": "Nihil eligendi repellendus nisi."
+                        }
+                      },
+                      "quantity": "2.00",
+                      "unit": "l"
+                    }
+                  ]
+                }
