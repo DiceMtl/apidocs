@@ -3,47 +3,165 @@ HOST: https://dice.today
 
 # Dice API
 
-**Dice API is technically private**. 
-While we do document it for our own sake and allow you to access this documentation, please not we do not officially support third-party development yet.
+**Dice API is technically private** at this time. 
+While we do document it for our own sake and allow you to access this documentation, please note we do not officially support third-party development yet.
 
+Dice API is a list of publicly accessible objects on the Dice API. Any non GET request needs to include a X- CSRF-TOKEN header.
 
-Dice API is a list of publicly accessible objects on the Dice API. Note that any non GET request needs to include a X- CSRF-TOKEN header.
-
-## Recipes Collection [/api/1/recipes{?limit}]
+## Dishes Collection [/api/1/dishes{?per_page}{?page}{?order}{?from}{?to}]
 
 + Parameters  
-  + limit (optional, number) ... maximum number of recipes expected by client.  
+  + per_page (optional, number, `20`) ... maximum number of dishes expected.
+  + page (optional, number, `1`) ... current page number.
+  + order (optional, string, `-created_at`) ... in what order should the results be sorted. Prepend with a `-` for a descending list.
+  + from (optional, string, `2016-04-16T18:25:43.511Z`) ... a minimum availability date (using the `available_from` column), UTC.
+  + to (optional, string, `2016-04-26T18:25:43.511Z`) ... a maximum availability date (using the `available_from` column), UTC.
+  
+
+### List All Dishes [GET]
+
+The list all recipes action will return a paginated list of Dish objects as a 
+json string.
+
++ Response 200 (application/json)
+
+        {
+            "total": 123,
+            "per_page": 20,
+            "current_page": 1,
+            "last_page": 7,
+            "next_page_url": "https://dice.today/api/1/dishes?page=2",
+            "prev_page_url": null,
+            "from": 1,
+            "to": 20,
+            "data": [
+                {
+                    "id": 2,
+                    "created_at": "2016-04-15 16:53:52",
+                    "updated_at": "2016-04-15 16:53:52",
+                    "deleted_at": null,
+                    "quantity": 10,
+                    "available_from": "2016-04-25 10:53:52",
+                    "available_to": "2016-04-25 16:53:52",
+                    "price": "12.49",
+                    "currency": "CAD",
+                    "inventory": 8,
+                    "recipe": {
+                        "id": 1,
+                        "created_at": "2016-04-13 19:09:19",
+                        "updated_at": "2016-04-13 19:09:19",
+                        "deleted_at": null,
+                        "chef_id": 47,
+                        "localization": {
+                            "language": "en",
+                            "title": "Quasi atque nobis dolorem odio optio.",
+                            "short_description": "Qui nesciunt nihil eos voluptates nulla commodi minus. Sint maxime voluptatem et eos.",
+                            "long_description": "Voluptatem expedita non accusantium omnis similique accusantium. Aliquid nulla libero dolores ut dolor est sequi. Nemo officiis architecto qui sequi. Saepe repellendus sit placeat ipsam. Harum molestiae eius quidem reprehenderit est et. Eos ea nulla molestiae nostrum molestias quia quia velit.",
+                            "created_at": null,
+                            "updated_at": null,
+                            "slug": "quasi-atque-nobis-dolorem-odio-optio",
+                            "permalink": "https://dice.today/recipes/quasi-atque-nobis-dolorem-odio-optio",
+                            "poster": {
+                                "url": "https://dice.today/recipes/{width}-{height}-quasi-atque-nobis-dolorem-odio-optio.jpg"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+
+## Dish [/api/1/dishes/{dish_id}]
+
+A single Dish object. A Dish marks the availability for sale of a Recipe. Therefore, a Recipe can have multiple dishes at different point in time, at different prices.
+
+### Retrieve a Dish [GET] 
+
+A Dish will also include a minimum of data about it's parent Recipe.
+
++ Parameters
+  + dish_id (required, Number, `1`) ... Numeric `id` of the Dish.
+
++ Response 200 (application/json)
+
+                          {
+            "id": 1,
+            "created_at": "2016-04-15 16:47:02",
+            "updated_at": "2016-04-15 16:47:02",
+            "deleted_at": null,
+            "quantity": 10,
+            "available_from": "2016-04-15 10:53:52",
+            "available_to": "2016-04-15 16:53:52",
+            "price": "0.00",
+            "currency": "CAD",
+            "inventory": 0,
+            "recipe": {
+                "id": 1,
+                "created_at": "2016-04-13 19:09:19",
+                "updated_at": "2016-04-13 19:09:19",
+                "deleted_at": null,
+                "chef_id": 47,
+                "localization": {
+                    "language": "en",
+                    "title": "Quasi atque nobis dolorem odio optio.",
+                    "short_description": "Qui nesciunt nihil eos voluptates nulla commodi minus. Sint maxime voluptatem et eos.",
+                    "long_description": "Voluptatem expedita non accusantium omnis similique accusantium. Aliquid nulla libero dolores ut dolor est sequi. Nemo officiis architecto qui sequi. Saepe repellendus sit placeat ipsam. Harum molestiae eius quidem reprehenderit est et. Eos ea nulla molestiae nostrum molestias quia quia velit.",
+                    "created_at": null,
+                    "updated_at": null,
+                    "slug": "quasi-atque-nobis-dolorem-odio-optio",
+                    "permalink": "http://dice.local:8000/recipes/quasi-atque-nobis-dolorem-odio-optio",
+                    "poster": {
+                        "url": "http://dice.local:8000/recipes/{width}-{height}-quasi-atque-nobis-dolorem-odio-optio.jpg"
+                    }
+                }
+            }
+        }
+
+## Recipes Collection [/api/1/recipes{?per_page}{?page}]
+
++ Parameters  
+  + per_page (optional, number) ... maximum number of recipes expected by the client on a single page.
+  + page (optional, number) ... current page number.
 
 ### List All Recipes [GET]
 
-The list all recipes action will return a sorted list of Recipe objects as a 
+The list all recipes action will return a paginated list of Recipe objects as a 
 json string. Unlike the Retrieve a Recipe action, recipes in this action
 will be shortened and won't include all alternate localizations.
 
 + Response 200 (application/json)
 
-                [
-                  {
+        {
+            "total": 50,
+            "per_page": 20,
+            "current_page": 1,
+            "last_page": 3,
+            "next_page_url": "https://dice.today/api/1/recipes?page=2",
+            "prev_page_url": null,
+            "from": 1,
+            "to": 20,
+            "data": [
+                {
                     "id": 50,
                     "created_at": "2016-04-11 22:29:07",
                     "updated_at": "2016-04-11 22:29:07",
                     "deleted_at": null,
                     "chef_id": 40,
                     "localization": {
-                      "language": "en",
-                      "title": "Eum sed libero nam quo.",
-                      "short_description": "A few words.",
-                      "long_description": "A longer description of the recipe.",
-                      "created_at": "2016-04-11 22:29:07",
-                      "updated_at": "2016-04-11 22:29:07",
-                      "slug": "eum-sed-libero-nam-quo",
-                      "permalink": "https://dice.today/recipes/eum-sed-libero-nam-quo",
-                      "poster": {
-                        "url": "https://dice.today/recipes/{width}-{height}-eum-sed-libero-nam-quo.jpg?modes={modes}"
-                      }
+                        "language": "en",
+                        "title": "Eum sed libero nam quo.",
+                        "short_description": "A few words.",
+                        "long_description": "A longer description of the recipe.",
+                        "created_at": "2016-04-11 22:29:07",
+                        "updated_at": "2016-04-11 22:29:07",
+                        "slug": "eum-sed-libero-nam-quo",
+                        "permalink": "https://dice.today/recipes/eum-sed-libero-nam-quo",
+                        "poster": {
+                            "url": "https://dice.today/recipes/{width}-{height}-eum-sed-libero-nam-quo.jpg?modes={modes}"
+                        }
                     }
-                  }
-                ]
+                }
+            ]
+        }
 
 ## Recipe [/api/1/recipes/{recipe_id}]
 
@@ -54,7 +172,7 @@ A single Recipe object.
 A recipe object will contain additional information, such as alternate localizations and ingredients.
 
 + Parameters  
-  + recipe_id (required, Number, `1`) ... Numeric `id` of the Recipe to perform action with.  
+  + recipe_id (required, Number, `1`) ... Numeric `id` of the Recipe.  
 
 + Response 200 (application/json)
 
@@ -91,3 +209,66 @@ A recipe object will contain additional information, such as alternate localizat
                     }
                   ]
                 }
+
+## Recipe's Dishes Collection [/api/1/recipes/{recipe_id}/dishes{?per_page}{?page}{?order}{?from}{?to}]
+
++ Parameters
+  + recipe_id (number, `1`) ... a given Recipe.
+  + per_page (optional, number, `20`) ... maximum number of dishes expected.
+  + page (optional, number, `1`) ... current page number.
+  + order (optional, string, `-created_at`) ... in what order should the results be sorted. Prepend with a `-` for a descending list.
+  + from (optional, string, `2016-04-16T18:25:43.511Z`) ... a minimum availability date (using the `available_from` column), UTC.
+  + to (optional, string, `2016-04-26T18:25:43.511Z`) ... a maximum availability date (using the `available_from` column), UTC.
+  
+
+### List All Dishes [GET]
+
+The list all recipes action will return a paginated list of Dish objects for a given recipe as a 
+json string.
+
+Unlike a call on `/dishes`, this endpoint will not return a complete `Recipe` object but only a stub containing the recipe's ID.
+
++ Response 200 (application/json)
+
+        {
+            "total": 2,
+            "per_page": 20,
+            "current_page": 1,
+            "last_page": 1,
+            "next_page_url": null,
+            "prev_page_url": null,
+            "from": 1,
+            "to": 2,
+            "data": [
+                {
+                    "id": 2,
+                    "created_at": "2016-04-15 16:53:52",
+                    "updated_at": "2016-04-15 16:53:52",
+                    "deleted_at": null,
+                    "quantity": 10,
+                    "available_from": "2016-04-25 10:53:52",
+                    "available_to": "2016-04-25 16:53:52",
+                    "price": "12.00",
+                    "currency": "CAD",
+                    "inventory": 8,
+                    "recipe": {
+                        "id": 1
+                    }
+                },
+                {
+                    "id": 1,
+                    "created_at": "2016-04-15 16:47:02",
+                    "updated_at": "2016-04-15 16:47:02",
+                    "deleted_at": null,
+                    "quantity": 10,
+                    "available_from": "2016-04-15 10:53:52",
+                    "available_to": "2016-04-15 16:53:52",
+                    "price": "0.00",
+                    "currency": "CAD",
+                    "inventory": 0,
+                    "recipe": {
+                        "id": 1
+                    }
+                }
+            ]
+        }
