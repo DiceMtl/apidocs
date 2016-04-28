@@ -70,6 +70,349 @@ json string.
             ]
         }
 
+## Charges Collection [/api/1/charges{?per_page}{?page}{?order}{?from}{?to}]
+
++ Parameters  
+  + per_page (optional, number, `20`) ... maximum number of dishes expected.
+  + page (optional, number, `1`) ... current page number.
+  + order (optional, string, `-created_at`) ... in what order should the results be sorted. Prepend with a `-` for a descending list.
+  + from (optional, string, `2016-04-16T18:25:43.511Z`) ... a minimum creation date (using the `created_at` column), UTC.
+  + to (optional, string, `2016-04-26T18:25:43.511Z`) ... a maximum creation date (using the `created_at` column), UTC.
+  
+
+### List All Charges [GET]
+
+The list all recipes action will return a paginated list of Charges objects as a 
+json string.
+
++ Response 200 (application/json)
+
+            {
+            "total": 500,
+            "per_page": "1",
+            "current_page": 1,
+            "last_page": 500,
+            "next_page_url": "http://dice.today/api/1/charges?page=2",
+            "prev_page_url": null,
+            "from": 1,
+            "to": 1,
+            "data": [
+                {
+                    "created_at": "2016-05-27 18:33:21",
+                    "updated_at": "2016-04-28 18:33:25",
+                    "deleted_at": null,
+                    "transaction_id": "dummy_65rp37zs",
+                    "metadata": {
+                        "items": [
+                            {
+                                "dish": {
+                                    "id": 47
+                                },
+                                "quantity": 6,
+                                "price": 44.04434256
+                            },
+                            {
+                                "dish": {
+                                    "id": 23
+                                },
+                                "quantity": 6,
+                                "price": 26.45791668
+                            }
+                        ],
+                        "transaction": {
+                            "provider": "stripe",
+                            "last_four": "5401",
+                            "card_brand": "MasterCard"
+                        },
+                        "shipping": {
+                            "type": "pickup"
+                        },
+                        "invoice": {
+                            "subtotal": 70.50225924,
+                            "shipping": 0,
+                            "taxes": [
+                                {
+                                    "identifier": "gst",
+                                    "amount": 3.0660022498291
+                                },
+                                {
+                                    "identifier": "qst",
+                                    "amount": 6.1166350071439
+                                }
+                            ],
+                            "total": 79.684896496973
+                        }
+                    },
+                    "value": 79.68,
+                    "key": "dicerxe1y",
+                    "permalink": "http://dice.today/charges/dicerxe1y",
+                    "user": {
+                        "id": 20,
+                        "name": "Amir Moen IV",
+                        "created_at": "2016-04-28 18:32:32",
+                        "updated_at": "2016-04-28 18:32:32",
+                        "is_chef": true,
+                        "is_patron": false,
+                        "is_admin": false
+                    }
+                }
+            ]
+        }
+
+
+
+## Charge [/api/1/charges/{charge_key}]
+
+A single Charge object. A charge is basically a transaction invoice. It can only be presented to it's owner
+or an admin at this moment.
+
+### Retrieve a Charge [GET] 
+
+A Charge will also include everything there is to know about the dishes it contains.
+
++ Parameters
+  + charge_key (required, string, `diceabc123`) ... A unique `key` identifier for the charge, presented as an invoice number.
+
++ Response 200 (application/json)
+
+        {
+            "created_at": "2016-05-27 18:33:21",
+            "updated_at": "2016-04-28 18:33:25",
+            "deleted_at": null,
+            "transaction_id": "dummy_65rp37zs",
+            "metadata": {
+                "items": [
+                    {
+                        "dish": {
+                            "id": 47,
+                            "created_at": "2016-04-28 18:32:35",
+                            "updated_at": "2016-04-28 18:32:35",
+                            "deleted_at": null,
+                            "available_from": "2016-04-28 00:00:00",
+                            "available_to": "2016-04-28 00:00:00",
+                            "price": "8.44",
+                            "currency": "CAD",
+                            "inventory": 8,
+                            "recipe": {
+                                "id": 26,
+                                "created_at": "2016-04-28 18:32:32",
+                                "updated_at": "2016-04-28 18:32:32",
+                                "deleted_at": null,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Laudantium blanditiis rerum voluptatem et aliquid est.",
+                                    "short_description": "Et error harum dolor explicabo. Temporibus est qui laudantium quidem. Ad nesciunt architecto ut sapiente repudiandae aut et sit.",
+                                    "long_description": "Dolorum similique quo culpa et. Excepturi eos velit asperiores soluta consequatur libero. Et ea accusantium quidem eum velit enim maiores rerum. Ex ullam et id quia illo quam. Eum autem magnam sint impedit sed. Quos iste cumque repellat voluptas.",
+                                    "created_at": null,
+                                    "updated_at": null,
+                                    "slug": "laudantium-blanditiis-rerum-voluptatem-et-aliquid-est",
+                                    "permalink": "http://dice.local:8000/recipes/laudantium-blanditiis-rerum-voluptatem-et-aliquid-est",
+                                    "poster": {
+                                        "url": "http://dice.local:8000/recipes/{width}-{height}-laudantium-blanditiis-rerum-voluptatem-et-aliquid-est.jpg"
+                                    }
+                                },
+                                "chef": {
+                                    "id": 49
+                                }
+                            }
+                        },
+                        "quantity": 6,
+                        "price": 44.04434256
+                    },
+                    {
+                        "dish": {
+                            "id": 23,
+                            "created_at": "2016-04-28 18:32:35",
+                            "updated_at": "2016-04-28 18:32:35",
+                            "deleted_at": null,
+                            "available_from": "2016-05-07 21:00:00",
+                            "available_to": "2016-05-07 21:00:00",
+                            "price": "5.07",
+                            "currency": "CAD",
+                            "inventory": 3,
+                            "recipe": {
+                                "id": 46,
+                                "created_at": "2016-04-28 18:32:32",
+                                "updated_at": "2016-04-28 18:32:32",
+                                "deleted_at": null,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Possimus sit optio dolores nobis laboriosam aperiam.",
+                                    "short_description": "Dolorem eveniet repellendus eos atque asperiores repudiandae et. Dignissimos voluptate porro aut ex consequatur est beatae.",
+                                    "long_description": "Ut dolor sint aliquam enim eos nulla perferendis vel. Quod adipisci perferendis consectetur et ullam. Repellendus qui consectetur magnam est. Incidunt dicta delectus aliquam mollitia recusandae in. Rem explicabo provident voluptate aliquid omnis autem. Aut voluptatem ducimus voluptatem est aliquid.",
+                                    "created_at": null,
+                                    "updated_at": null,
+                                    "slug": "possimus-sit-optio-dolores-nobis-laboriosam-aperiam",
+                                    "permalink": "http://dice.local:8000/recipes/possimus-sit-optio-dolores-nobis-laboriosam-aperiam",
+                                    "poster": {
+                                        "url": "http://dice.local:8000/recipes/{width}-{height}-possimus-sit-optio-dolores-nobis-laboriosam-aperiam.jpg"
+                                    }
+                                },
+                                "chef": {
+                                    "id": 51
+                                }
+                            }
+                        },
+                        "quantity": 6,
+                        "price": 26.45791668
+                    }
+                ],
+                "transaction": {
+                    "provider": "stripe",
+                    "last_four": "5401",
+                    "card_brand": "MasterCard"
+                },
+                "shipping": {
+                    "type": "pickup"
+                },
+                "invoice": {
+                    "subtotal": 70.50225924,
+                    "shipping": 0,
+                    "taxes": [
+                        {
+                            "identifier": "gst",
+                            "amount": 3.0660022498291
+                        },
+                        {
+                            "identifier": "qst",
+                            "amount": 6.1166350071439
+                        }
+                    ],
+                    "total": 79.684896496973
+                }
+            },
+            "value": 79.68,
+            "key": "dicerxe1y",
+            "permalink": "http://dice.local:8000/charges/dicerxe1y"
+        }
+
+### Create a Charge [POST] 
+
+To create a charge, a Stripe token must be passed as well as a very simplified items object with only a `Dish` ID and a `quantity`.
+
+> Content-Type: application/json; charset=utf-8
+
+        {
+            "source":"tok_185GD92eZvKYlo2CNsV7Njwz",
+            "items": [
+                {"dish":{"id":"23"}, "quantity":6},
+                {"dish":{"id":"47"}, "quantity":6},
+            ]
+        }
+
++ Response 200 (application/json)
+
+        {
+            "created_at": "2016-05-27 18:33:21",
+            "updated_at": "2016-04-28 18:33:25",
+            "deleted_at": null,
+            "transaction_id": "dummy_65rp37zs",
+            "metadata": {
+                "items": [
+                    {
+                        "dish": {
+                            "id": 47,
+                            "created_at": "2016-04-28 18:32:35",
+                            "updated_at": "2016-04-28 18:32:35",
+                            "deleted_at": null,
+                            "available_from": "2016-04-28 00:00:00",
+                            "available_to": "2016-04-28 00:00:00",
+                            "price": "8.44",
+                            "currency": "CAD",
+                            "inventory": 8,
+                            "recipe": {
+                                "id": 26,
+                                "created_at": "2016-04-28 18:32:32",
+                                "updated_at": "2016-04-28 18:32:32",
+                                "deleted_at": null,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Laudantium blanditiis rerum voluptatem et aliquid est.",
+                                    "short_description": "Et error harum dolor explicabo. Temporibus est qui laudantium quidem. Ad nesciunt architecto ut sapiente repudiandae aut et sit.",
+                                    "long_description": "Dolorum similique quo culpa et. Excepturi eos velit asperiores soluta consequatur libero. Et ea accusantium quidem eum velit enim maiores rerum. Ex ullam et id quia illo quam. Eum autem magnam sint impedit sed. Quos iste cumque repellat voluptas.",
+                                    "created_at": null,
+                                    "updated_at": null,
+                                    "slug": "laudantium-blanditiis-rerum-voluptatem-et-aliquid-est",
+                                    "permalink": "http://dice.local:8000/recipes/laudantium-blanditiis-rerum-voluptatem-et-aliquid-est",
+                                    "poster": {
+                                        "url": "http://dice.local:8000/recipes/{width}-{height}-laudantium-blanditiis-rerum-voluptatem-et-aliquid-est.jpg"
+                                    }
+                                },
+                                "chef": {
+                                    "id": 49
+                                }
+                            }
+                        },
+                        "quantity": 6,
+                        "price": 44.04434256
+                    },
+                    {
+                        "dish": {
+                            "id": 23,
+                            "created_at": "2016-04-28 18:32:35",
+                            "updated_at": "2016-04-28 18:32:35",
+                            "deleted_at": null,
+                            "available_from": "2016-05-07 21:00:00",
+                            "available_to": "2016-05-07 21:00:00",
+                            "price": "5.07",
+                            "currency": "CAD",
+                            "inventory": 3,
+                            "recipe": {
+                                "id": 46,
+                                "created_at": "2016-04-28 18:32:32",
+                                "updated_at": "2016-04-28 18:32:32",
+                                "deleted_at": null,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Possimus sit optio dolores nobis laboriosam aperiam.",
+                                    "short_description": "Dolorem eveniet repellendus eos atque asperiores repudiandae et. Dignissimos voluptate porro aut ex consequatur est beatae.",
+                                    "long_description": "Ut dolor sint aliquam enim eos nulla perferendis vel. Quod adipisci perferendis consectetur et ullam. Repellendus qui consectetur magnam est. Incidunt dicta delectus aliquam mollitia recusandae in. Rem explicabo provident voluptate aliquid omnis autem. Aut voluptatem ducimus voluptatem est aliquid.",
+                                    "created_at": null,
+                                    "updated_at": null,
+                                    "slug": "possimus-sit-optio-dolores-nobis-laboriosam-aperiam",
+                                    "permalink": "http://dice.local:8000/recipes/possimus-sit-optio-dolores-nobis-laboriosam-aperiam",
+                                    "poster": {
+                                        "url": "http://dice.local:8000/recipes/{width}-{height}-possimus-sit-optio-dolores-nobis-laboriosam-aperiam.jpg"
+                                    }
+                                },
+                                "chef": {
+                                    "id": 51
+                                }
+                            }
+                        },
+                        "quantity": 6,
+                        "price": 26.45791668
+                    }
+                ],
+                "transaction": {
+                    "provider": "stripe",
+                    "last_four": "5401",
+                    "card_brand": "MasterCard"
+                },
+                "shipping": {
+                    "type": "pickup"
+                },
+                "invoice": {
+                    "subtotal": 70.50225924,
+                    "shipping": 0,
+                    "taxes": [
+                        {
+                            "identifier": "gst",
+                            "amount": 3.0660022498291
+                        },
+                        {
+                            "identifier": "qst",
+                            "amount": 6.1166350071439
+                        }
+                    ],
+                    "total": 79.684896496973
+                }
+            },
+            "value": 79.68,
+            "key": "dicerxe1y",
+            "permalink": "http://dice.local:8000/charges/dicerxe1y"
+        }
+
 ## Dish [/api/1/dishes/{dish_id}]
 
 A single Dish object. A Dish marks the availability for sale of a Recipe. Therefore, a Recipe can have multiple dishes at different point in time, at different prices.
