@@ -8,67 +8,6 @@ While we do document it for our own sake and allow you to access this documentat
 
 Dice API is a list of publicly accessible objects on the Dice API. Any non GET request needs to include a X- CSRF-TOKEN header.
 
-## Dishes Collection [/api/1/dishes{?per_page}{?page}{?order}{?from}{?to}]
-
-+ Parameters  
-  + per_page (optional, number, `20`) ... maximum number of dishes expected.
-  + page (optional, number, `1`) ... current page number.
-  + order (optional, string, `-created_at`) ... in what order should the results be sorted. Prepend with a `-` for a descending list.
-  + from (optional, string, `2016-04-16T18:25:43.511Z`) ... a minimum availability date (using the `available_from` column), UTC.
-  + to (optional, string, `2016-04-26T18:25:43.511Z`) ... a maximum availability date (using the `available_from` column), UTC.
-  
-
-### List All Dishes [GET]
-
-The list all recipes action will return a paginated list of Dish objects as a 
-json string.
-
-+ Response 200 (application/json)
-
-        {
-            "total": 123,
-            "per_page": 20,
-            "current_page": 1,
-            "last_page": 7,
-            "next_page_url": "https://dice.today/api/1/dishes?page=2",
-            "prev_page_url": null,
-            "from": 1,
-            "to": 20,
-            "data": [
-                {
-                    "id": 2,
-                    "created_at": "2016-04-15 16:53:52",
-                    "updated_at": "2016-04-15 16:53:52",
-                    "deleted_at": null,
-                    "quantity": 10,
-                    "available_from": "2016-04-25 10:53:52",
-                    "available_to": "2016-04-25 16:53:52",
-                    "price": "12.49",
-                    "currency": "CAD",
-                    "inventory": 8,
-                    "recipe": {
-                        "id": 1,
-                        "created_at": "2016-04-13 19:09:19",
-                        "updated_at": "2016-04-13 19:09:19",
-                        "deleted_at": null,
-                        "chef_id": 47,
-                        "localization": {
-                            "language": "en",
-                            "title": "Quasi atque nobis dolorem odio optio.",
-                            "short_description": "Qui nesciunt nihil eos voluptates nulla commodi minus. Sint maxime voluptatem et eos.",
-                            "long_description": "Voluptatem expedita non accusantium omnis similique accusantium. Aliquid nulla libero dolores ut dolor est sequi. Nemo officiis architecto qui sequi. Saepe repellendus sit placeat ipsam. Harum molestiae eius quidem reprehenderit est et. Eos ea nulla molestiae nostrum molestias quia quia velit.",
-                            "created_at": null,
-                            "updated_at": null,
-                            "slug": "quasi-atque-nobis-dolorem-odio-optio",
-                            "permalink": "https://dice.today/recipes/quasi-atque-nobis-dolorem-odio-optio",
-                            "poster": {
-                                "url": "https://dice.today/recipes/{width}-{height}-quasi-atque-nobis-dolorem-odio-optio.jpg"
-                            }
-                        }
-                    }
-                }
-            ]
-        }
 
 ## Charges Collection [/api/1/charges{?per_page}{?page}{?order}{?from}{?to}]
 
@@ -412,6 +351,71 @@ To create a charge, a Stripe token must be passed as well as a very simplified i
             "key": "dicerxe1y",
             "permalink": "http://dice.local:8000/charges/dicerxe1y"
         }
+
+
+
+## Dishes Collection [/api/1/dishes{?per_page}{?page}{?order}{?from}{?to}]
+
++ Parameters  
+  + per_page (optional, number, `20`) ... maximum number of dishes expected.
+  + page (optional, number, `1`) ... current page number.
+  + order (optional, string, `-created_at`) ... in what order should the results be sorted. Prepend with a `-` for a descending list.
+  + from (optional, string, `2016-04-16T18:25:43.511Z`) ... a minimum availability date (using the `available_from` column), UTC.
+  + to (optional, string, `2016-04-26T18:25:43.511Z`) ... a maximum availability date (using the `available_from` column), UTC.
+  
+
+### List All Dishes [GET]
+
+The list all recipes action will return a paginated list of Dish objects as a 
+json string.
+
++ Response 200 (application/json)
+
+        {
+            "total": 123,
+            "per_page": 20,
+            "current_page": 1,
+            "last_page": 7,
+            "next_page_url": "https://dice.today/api/1/dishes?page=2",
+            "prev_page_url": null,
+            "from": 1,
+            "to": 20,
+            "data": [
+                {
+                    "id": 2,
+                    "created_at": "2016-04-15 16:53:52",
+                    "updated_at": "2016-04-15 16:53:52",
+                    "deleted_at": null,
+                    "quantity": 10,
+                    "available_from": "2016-04-25 10:53:52",
+                    "available_to": "2016-04-25 16:53:52",
+                    "price": "12.49",
+                    "currency": "CAD",
+                    "inventory": 8,
+                    "recipe": {
+                        "id": 1,
+                        "created_at": "2016-04-13 19:09:19",
+                        "updated_at": "2016-04-13 19:09:19",
+                        "deleted_at": null,
+                        "chef_id": 47,
+                        "localization": {
+                            "language": "en",
+                            "title": "Quasi atque nobis dolorem odio optio.",
+                            "short_description": "Qui nesciunt nihil eos voluptates nulla commodi minus. Sint maxime voluptatem et eos.",
+                            "long_description": "Voluptatem expedita non accusantium omnis similique accusantium. Aliquid nulla libero dolores ut dolor est sequi. Nemo officiis architecto qui sequi. Saepe repellendus sit placeat ipsam. Harum molestiae eius quidem reprehenderit est et. Eos ea nulla molestiae nostrum molestias quia quia velit.",
+                            "created_at": null,
+                            "updated_at": null,
+                            "slug": "quasi-atque-nobis-dolorem-odio-optio",
+                            "permalink": "https://dice.today/recipes/quasi-atque-nobis-dolorem-odio-optio",
+                            "poster": {
+                                "url": "https://dice.today/recipes/{width}-{height}-quasi-atque-nobis-dolorem-odio-optio.jpg"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+
 
 ## Dish [/api/1/dishes/{dish_id}]
 
