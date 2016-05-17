@@ -3,7 +3,7 @@ HOST: https://dice.today
 
 # Dice API
 
-**Dice API is technically private** at this time. 
+**Dice API is technically private** at this time.
 While we do document it for our own sake and allow you to access this documentation, please note we do not officially support third-party development yet.
 
 Dice API is a list of publicly accessible objects on the Dice API. Any non GET request needs to include a X- CSRF-TOKEN header.
@@ -11,17 +11,17 @@ Dice API is a list of publicly accessible objects on the Dice API. Any non GET r
 
 ## Charges Collection [/api/1/charges{?per_page}{?page}{?order}{?from}{?to}]
 
-+ Parameters  
++ Parameters
   + per_page (optional, number, `20`) ... maximum number of dishes expected.
   + page (optional, number, `1`) ... current page number.
   + order (optional, string, `-created_at`) ... in what order should the results be sorted. Prepend with a `-` for a descending list.
   + from (optional, string, `2016-04-16T18:25:43.511Z`) ... a minimum creation date (using the `created_at` column), UTC.
   + to (optional, string, `2016-04-26T18:25:43.511Z`) ... a maximum creation date (using the `created_at` column), UTC.
-  
+
 
 ### List All Charges [GET]
 
-The list all recipes action will return a paginated list of Charges objects as a 
+The list all recipes action will return a paginated list of Charges objects as a
 json string.
 
 + Response 200 (application/json)
@@ -105,7 +105,7 @@ json string.
 A single Charge object. A charge is basically a transaction invoice. It can only be presented to it's owner
 or an admin at this moment.
 
-### Retrieve a Charge [GET] 
+### Retrieve a Charge [GET]
 
 A Charge will also include everything there is to know about the dishes it contains.
 
@@ -225,7 +225,7 @@ A Charge will also include everything there is to know about the dishes it conta
             "permalink": "http://dice.local:8000/charges/dicerxe1y"
         }
 
-### Create a Charge [POST] 
+### Create a Charge [POST]
 
 To create a charge, a Stripe token must be passed as well as a very simplified items object with only a `Dish` ID and a `quantity`.
 
@@ -356,17 +356,17 @@ To create a charge, a Stripe token must be passed as well as a very simplified i
 
 ## Dishes Collection [/api/1/dishes{?per_page}{?page}{?order}{?from}{?to}]
 
-+ Parameters  
++ Parameters
   + per_page (optional, number, `20`) ... maximum number of dishes expected.
   + page (optional, number, `1`) ... current page number.
   + order (optional, string, `-created_at`) ... in what order should the results be sorted. Prepend with a `-` for a descending list.
   + from (optional, string, `2016-04-16T18:25:43.511Z`) ... a minimum availability date (using the `available_from` column), UTC.
   + to (optional, string, `2016-04-26T18:25:43.511Z`) ... a maximum availability date (using the `available_from` column), UTC.
-  
+
 
 ### List All Dishes [GET]
 
-The list all recipes action will return a paginated list of Dish objects as a 
+The list all recipes action will return a paginated list of Dish objects as a
 json string.
 
 + Response 200 (application/json)
@@ -421,7 +421,7 @@ json string.
 
 A single Dish object. A Dish marks the availability for sale of a Recipe. Therefore, a Recipe can have multiple dishes at different point in time, at different prices.
 
-### Retrieve a Dish [GET] 
+### Retrieve a Dish [GET]
 
 A Dish will also include a minimum of data about it's parent Recipe.
 
@@ -465,13 +465,13 @@ A Dish will also include a minimum of data about it's parent Recipe.
 
 ## Recipes Collection [/api/1/recipes{?per_page}{?page}]
 
-+ Parameters  
++ Parameters
   + per_page (optional, number) ... maximum number of recipes expected by the client on a single page.
   + page (optional, number) ... current page number.
 
 ### List All Recipes [GET]
 
-The list all recipes action will return a paginated list of Recipe objects as a 
+The list all recipes action will return a paginated list of Recipe objects as a
 json string. Unlike the Retrieve a Recipe action, recipes in this action
 will be shortened and won't include all alternate localizations.
 
@@ -482,29 +482,109 @@ will be shortened and won't include all alternate localizations.
             "per_page": 20,
             "current_page": 1,
             "last_page": 3,
-            "next_page_url": "https://dice.today/api/1/recipes?page=2",
+            "next_page_url": "http://dice.local:8000/api/1/recipes?page=2",
             "prev_page_url": null,
             "from": 1,
             "to": 20,
             "data": [
                 {
                     "id": 50,
-                    "created_at": "2016-04-11 22:29:07",
-                    "updated_at": "2016-04-11 22:29:07",
+                    "created_at": "2016-05-16 15:18:31",
+                    "updated_at": "2016-05-16 15:18:31",
                     "deleted_at": null,
-                    "chef_id": 40,
                     "localization": {
                         "language": "en",
-                        "title": "Eum sed libero nam quo.",
-                        "short_description": "A few words.",
-                        "long_description": "A longer description of the recipe.",
-                        "created_at": "2016-04-11 22:29:07",
-                        "updated_at": "2016-04-11 22:29:07",
-                        "slug": "eum-sed-libero-nam-quo",
-                        "permalink": "https://dice.today/recipes/eum-sed-libero-nam-quo",
+                        "title": "Sint ut iusto voluptatem voluptatem sed.",
+                        "short_description": "Vel aliquid laborum aspernatur esse. Vel dolorem quidem non cumque enim. Aliquam voluptas qui voluptates aut occaecati ea recusandae.",
+                        "created_at": null,
+                        "updated_at": null,
+                        "slug": "sint-ut-iusto-voluptatem-voluptatem-sed",
+                        "permalink": "http://dice.local:8000/recipes/sint-ut-iusto-voluptatem-voluptatem-sed",
                         "poster": {
-                            "url": "https://dice.today/recipes/{width}-{height}-eum-sed-libero-nam-quo.jpg?modes={modes}"
-                        }
+                            "url": "http://dice.local:8000/recipes/{width}-{height}-sint-ut-iusto-voluptatem-voluptatem-sed.jpg"
+                        },
+                        "steps": [
+                            {
+                                "language": "en",
+                                "position": 0,
+                                "description": "Labore occaecati adipisci quia quaerat molestias. Mollitia enim tenetur praesentium laudantium consequatur quisquam quidem. Sequi sed voluptas expedita eos est dolor omnis facilis.",
+                                "oven_temperature": 260,
+                                "chilling_temperature": 6,
+                                "internal_temperature": 79,
+                                "active_time": 124,
+                                "cooking_time": 740,
+                                "idle_time": 308
+                            },
+                            {
+                                "language": "en",
+                                "position": 1,
+                                "description": "Id ex facilis et nostrum error corporis eveniet harum. Non sit et dolores distinctio ducimus veritatis. Reprehenderit provident quod quo dolorem aspernatur in earum.",
+                                "oven_temperature": 260,
+                                "chilling_temperature": -14,
+                                "internal_temperature": 65,
+                                "active_time": 603,
+                                "cooking_time": 528,
+                                "idle_time": 713
+                            },
+                            {
+                                "language": "en",
+                                "position": 3,
+                                "description": "Quisquam repudiandae voluptatem quia nihil eius suscipit saepe. Assumenda eos sit eveniet.",
+                                "oven_temperature": 260,
+                                "chilling_temperature": -8,
+                                "internal_temperature": 82,
+                                "active_time": 851,
+                                "cooking_time": 170,
+                                "idle_time": 568
+                            },
+                            {
+                                "language": "en",
+                                "position": 4,
+                                "description": "Provident fugiat repellat pariatur illum. Fuga quo illo et qui doloremque non eum. Voluptas est nihil repellendus voluptates quod magnam velit.",
+                                "oven_temperature": 180,
+                                "chilling_temperature": 13,
+                                "internal_temperature": 82,
+                                "active_time": 714,
+                                "cooking_time": 488,
+                                "idle_time": 498
+                            },
+                            {
+                                "language": "en",
+                                "position": 5,
+                                "description": "Autem at ab minima aliquid molestiae. Possimus accusamus et cumque non animi doloribus ad voluptas. Est accusamus aut inventore a.",
+                                "oven_temperature": 165,
+                                "chilling_temperature": 14,
+                                "internal_temperature": 70,
+                                "active_time": 237,
+                                "cooking_time": 61,
+                                "idle_time": 286
+                            },
+                            {
+                                "language": "en",
+                                "position": 8,
+                                "description": "Ut sit sunt sequi vel. Officiis consequatur voluptatem atque. In aut quas quos in ipsam.",
+                                "oven_temperature": 205,
+                                "chilling_temperature": 9,
+                                "internal_temperature": 77,
+                                "active_time": 676,
+                                "cooking_time": 115,
+                                "idle_time": 711
+                            },
+                            {
+                                "language": "en",
+                                "position": 9,
+                                "description": "Odit et earum deleniti consectetur excepturi sed. Non dolores temporibus est eos aspernatur magni voluptas. Inventore libero non adipisci dolor sint vitae.",
+                                "oven_temperature": 260,
+                                "chilling_temperature": 0,
+                                "internal_temperature": 72,
+                                "active_time": 552,
+                                "cooking_time": 92,
+                                "idle_time": 346
+                            }
+                        ]
+                    },
+                    "chef": {
+                        "id": 11
                     }
                 }
             ]
@@ -514,47 +594,208 @@ will be shortened and won't include all alternate localizations.
 
 A single Recipe object.
 
-### Retrieve a Recipe [GET] 
+### Retrieve a Recipe [GET]
 
 A recipe object will contain additional information, such as alternate localizations and ingredients.
 
-+ Parameters  
-  + recipe_id (required, Number, `1`) ... Numeric `id` of the Recipe.  
++ Parameters
+  + recipe_id (required, Number, `1`) ... Numeric `id` of the Recipe.
 
 + Response 200 (application/json)
 
                   {
-                  "id": 1,
-                  "created_at": "2016-04-11 22:29:07",
-                  "updated_at": "2016-04-11 22:29:07",
-                  "deleted_at": null,
-                  "chef_id": 28,
-                  "localization": {
-                    "language": "en",
-                    "title": "Et excepturi laudantium temporibus porro.",
-                    "short_description": "Odio sit non ex. Et eaque ut magnam dolor eius ut.",
-                    "long_description": "Voluptatem dolorum cupiditate vitae odit aut et. Et cumque repellat facere. Placeat quis quas necessitatibus enim tempora. Voluptatum velit distinctio placeat nam distinctio fuga. Molestiae aut sint enim rem tempora dolores mollitia reprehenderit.",
-                    "created_at": "2016-04-11 22:29:07",
-                    "updated_at": "2016-04-11 22:29:07",
-                    "slug": "et-excepturi-laudantium-temporibus-porro",
-                    "permalink": "https://dice.today/recipes/et-excepturi-laudantium-temporibus-porro",
-                    "poster": {
-                      "url": "https://dice.today/recipes/{width}-{height}-et-excepturi-laudantium-temporibus-porro.jpg?modes={modes}"
-                    }
-                  },
-                  "ingredients": [
-                    {
-                      "ingredient": {
-                        "id": 2,
-                        "localization": {
-                          "language": "en",
-                          "title": "Nihil eligendi repellendus nisi."
+                    "id": 1,
+                    "created_at": "2016-05-16 15:18:31",
+                    "updated_at": "2016-05-16 15:18:31",
+                    "deleted_at": null,
+                    "localization": {
+                        "language": "en",
+                        "title": "Amet distinctio hic doloribus non neque et.",
+                        "short_description": "Saepe iusto id incidunt quia voluptatem est aliquid. Officia enim rem odit.",
+                        "created_at": null,
+                        "updated_at": null,
+                        "slug": "amet-distinctio-hic-doloribus-non-neque-et",
+                        "permalink": "http://dice.local:8000/recipes/amet-distinctio-hic-doloribus-non-neque-et",
+                        "poster": {
+                            "url": "http://dice.local:8000/recipes/{width}-{height}-amet-distinctio-hic-doloribus-non-neque-et.jpg"
+                        },
+                        "steps": [
+                            {
+                                "language": "en",
+                                "position": 0,
+                                "description": "Iste iste a qui quas. Id minima beatae corporis molestiae ut vero voluptatem. Animi qui culpa et quasi rerum nostrum vitae.",
+                                "oven_temperature": 180,
+                                "chilling_temperature": 13,
+                                "internal_temperature": 81,
+                                "active_time": 858,
+                                "cooking_time": 745,
+                                "idle_time": 596
+                            },
+                            {
+                                "language": "en",
+                                "position": 1,
+                                "description": "Et soluta inventore ut qui molestias sed. Maxime dolorum vero quisquam. Eos blanditiis eligendi et illo.",
+                                "oven_temperature": 454,
+                                "chilling_temperature": 16,
+                                "internal_temperature": 63,
+                                "active_time": 476,
+                                "cooking_time": 687,
+                                "idle_time": 308
+                            },
+                            {
+                                "language": "en",
+                                "position": 2,
+                                "description": "Eaque temporibus voluptatum quis porro quo aut. Fugit provident quo necessitatibus doloribus.",
+                                "oven_temperature": 165,
+                                "chilling_temperature": 17,
+                                "internal_temperature": 71,
+                                "active_time": 165,
+                                "cooking_time": 168,
+                                "idle_time": 651
+                            },
+                            {
+                                "language": "en",
+                                "position": 4,
+                                "description": "Qui officiis molestiae rerum blanditiis laborum et minus. Culpa a non voluptas molestiae voluptatibus unde voluptate. Facilis illo illum vel.",
+                                "oven_temperature": 165,
+                                "chilling_temperature": 9,
+                                "internal_temperature": 69,
+                                "active_time": 447,
+                                "cooking_time": 840,
+                                "idle_time": 621
+                            },
+                            {
+                                "language": "en",
+                                "position": 5,
+                                "description": "Placeat consequatur eveniet labore sit amet eaque voluptatem. Est et et laboriosam delectus. Repellendus autem quia et et fugiat aut commodi.",
+                                "oven_temperature": 180,
+                                "chilling_temperature": -1,
+                                "internal_temperature": 73,
+                                "active_time": 873,
+                                "cooking_time": 435,
+                                "idle_time": 447
+                            },
+                            {
+                                "language": "en",
+                                "position": 6,
+                                "description": "Aliquid eos veritatis distinctio. Aut atque praesentium magnam et.",
+                                "oven_temperature": 260,
+                                "chilling_temperature": -6,
+                                "internal_temperature": 81,
+                                "active_time": 113,
+                                "cooking_time": 668,
+                                "idle_time": 490
+                            },
+                            {
+                                "language": "en",
+                                "position": 7,
+                                "description": "Tempore cum eum explicabo ex in in id quas. Veritatis amet aspernatur alias vitae neque. Autem enim quo nobis dignissimos voluptates dolorem consequatur nihil.",
+                                "oven_temperature": 165,
+                                "chilling_temperature": -11,
+                                "internal_temperature": 73,
+                                "active_time": 219,
+                                "cooking_time": 381,
+                                "idle_time": 343
+                            }
+                        ]
+                    },
+                    "chef": {
+                        "created_at": "2016-05-16 15:18:30",
+                        "updated_at": "2016-05-16 15:18:30",
+                        "rank": "A",
+                        "user": {
+                            "name": "Horacio Lubowitz"
+                        },
+                        "key": "5r87y"
+                    },
+                    "localizations": [
+                        {
+                            "language": "en",
+                            "title": "Amet distinctio hic doloribus non neque et.",
+                            "short_description": "Saepe iusto id incidunt quia voluptatem est aliquid. Officia enim rem odit.",
+                            "created_at": null,
+                            "updated_at": null,
+                            "slug": "amet-distinctio-hic-doloribus-non-neque-et",
+                            "permalink": "http://dice.local:8000/recipes/amet-distinctio-hic-doloribus-non-neque-et",
+                            "poster": {
+                                "url": "http://dice.local:8000/recipes/{width}-{height}-amet-distinctio-hic-doloribus-non-neque-et.jpg"
+                            }
                         }
-                      },
-                      "quantity": "2.00",
-                      "unit": "l"
-                    }
-                  ]
+                    ],
+                    "ingredients": [
+                        {
+                            "ingredient": {
+                                "id": 30,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Nisi modi voluptatum."
+                                }
+                            },
+                            "quantity": "3.00",
+                            "unit": "m",
+                            "formatted_quantity": "3 m"
+                        },
+                        {
+                            "ingredient": {
+                                "id": 39,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Neque id consectetur est nulla."
+                                }
+                            },
+                            "quantity": "5.00",
+                            "unit": "l",
+                            "formatted_quantity": "5 l"
+                        },
+                        {
+                            "ingredient": {
+                                "id": 61,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Sapiente distinctio rem neque."
+                                }
+                            },
+                            "quantity": "5.00",
+                            "unit": "c",
+                            "formatted_quantity": "5 c"
+                        },
+                        {
+                            "ingredient": {
+                                "id": 58,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Tempora nihil enim ratione."
+                                }
+                            },
+                            "quantity": "2.00",
+                            "unit": "unit",
+                            "formatted_quantity": "2 unit"
+                        },
+                        {
+                            "ingredient": {
+                                "id": 99,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Repellat nihil tenetur."
+                                }
+                            },
+                            "quantity": "5.00",
+                            "unit": "unit",
+                            "formatted_quantity": "5 unit"
+                        },
+                        {
+                            "ingredient": {
+                                "id": 64,
+                                "localization": {
+                                    "language": "en",
+                                    "title": "Amet odit eum ut."
+                                }
+                            },
+                            "quantity": "3.00",
+                            "unit": "m",
+                            "formatted_quantity": "3 m"
+                        }
+                    ]
                 }
 
 ## Recipe's Dishes Collection [/api/1/recipes/{recipe_id}/dishes{?per_page}{?page}{?order}{?from}{?to}]
@@ -566,11 +807,11 @@ A recipe object will contain additional information, such as alternate localizat
   + order (optional, string, `-created_at`) ... in what order should the results be sorted. Prepend with a `-` for a descending list.
   + from (optional, string, `2016-04-16T18:25:43.511Z`) ... a minimum availability date (using the `available_from` column), UTC.
   + to (optional, string, `2016-04-26T18:25:43.511Z`) ... a maximum availability date (using the `available_from` column), UTC.
-  
+
 
 ### List All Dishes [GET]
 
-The list all recipes action will return a paginated list of Dish objects for a given recipe as a 
+The list all recipes action will return a paginated list of Dish objects for a given recipe as a
 json string.
 
 Unlike a call on `/dishes`, this endpoint will not return a complete `Recipe` object but only a stub containing the recipe's ID.
